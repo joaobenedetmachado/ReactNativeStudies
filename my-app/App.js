@@ -1,6 +1,9 @@
 import { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, TextInput, Button, Image, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Button, Image, Dimensions, ScrollView } from 'react-native';
+
+const { height, width } = Dimensions.get('window');
+
 
 export default function App() {
   const [inputValue, setInputValue] = useState('');
@@ -47,7 +50,7 @@ export default function App() {
 
       {movies.map((movie, index) => (
         <View key={index}>
-          <Image source={{ uri: movie.poster }} style={styles.poster} />
+          <Image source={{ uri: `https://image.tmdb.org/t/p/w220_and_h330_face/${movie.poster_path}` }} style={styles.poster} />
           <Text>{movie.title}</Text>
           <Text>{movie.year}</Text>
         </View>
@@ -60,10 +63,14 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
+  scrollView: {
+    flex: 1, 
+  },
   container: {
-    flex: 1,
     backgroundColor: '#f5f5f5',
     paddingTop: 35,
+    minHeight: height,
+    width: width,
   },
   header: {
     width: '100%',
