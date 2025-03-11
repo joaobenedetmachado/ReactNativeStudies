@@ -4,6 +4,7 @@ import { StyleSheet, Text, View, TextInput, Button, Image, Dimensions, ScrollVie
 import CardMovie from './components/CardMovie';
 const { height, width } = Dimensions.get('window');
 import Loading from './components/Loading';
+import Page from './components/Page';
 
 export default function App() {
   const [inputValue, setInputValue] = useState('');
@@ -32,10 +33,10 @@ export default function App() {
 
   return (
     <ScrollView>
-      {loading && (
-<Loading/>
-  )}
     <View style={styles.container}>
+    {loading === true ? (
+  <Loading/>
+    ) : null}
       <View style={styles.header}>
         <Text style={styles.headerText}>Busca de Filmes</Text>
       </View>
@@ -72,6 +73,7 @@ export default function App() {
 
       <StatusBar style="auto" />
     </View>
+    <Page/>
     </ScrollView>
   );
 }
@@ -79,6 +81,7 @@ export default function App() {
 const styles = StyleSheet.create({
   scrollView: {
     flex: 1, 
+    backgroundColor: '#f5f5f5',
   },
   container: {
     backgroundColor: '#f5f5f5',
