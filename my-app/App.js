@@ -3,14 +3,16 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, TextInput, Button, Image, Dimensions, ScrollView } from 'react-native';
 import CardMovie from './components/CardMovie';
 const { height, width } = Dimensions.get('window');
-
+import Loading from './components/Loading';
 
 export default function App() {
   const [inputValue, setInputValue] = useState('');
   const [movies, setMovies] = useState([]);
+  const [loading, setLoading] = useState(false);
   
   const pesquisarFilme = async () => {
     try {
+      setLoading(true);
       const response = await fetch(
         `https://api.themoviedb.org/3/search/movie?query=${inputValue}&language=pt-BR`,
         {
@@ -22,6 +24,7 @@ export default function App() {
       const data = await response.json();
       setMovies(data.results || []);
       console.log(data);
+      setLoading(false);
     } catch (error) {
       console.log('Erro:', error);
     }
@@ -29,6 +32,9 @@ export default function App() {
 
   return (
     <ScrollView>
+      {loading && (
+<Loading/>
+  )}
     <View style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.headerText}>Busca de Filmes</Text>
@@ -48,15 +54,22 @@ export default function App() {
         />
       </View>
 
-      {movies?.map((movie) => (
-  <CardMovie 
-    key={movie.id} 
-    title={movie.title} 
-    image={movie.poster_path ? movie.poster_path : ''} 
-  />
-))}
+      {
+  movies.length === 0 ? ( 
+    <Text style={{ fontSize: 20, textAlign: 'center' }}>
+      Nenhum filme encontrado
+    </Text>
+  ) : ( 
+    movies.map((movie) => (
+      <CardMovie 
+        key={movie.id} 
+        title={movie.title} 
+        image={movie.poster_path ? movie.poster_path : ''} 
+      />
+    ))
+  )
+}
 
-      
       <StatusBar style="auto" />
     </View>
     </ScrollView>
