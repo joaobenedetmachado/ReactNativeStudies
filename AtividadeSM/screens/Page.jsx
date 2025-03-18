@@ -27,7 +27,7 @@ function Page() {
                 }}>
                 <Text style={{
                     color: "#ffffff"
-                }}>Minha academia é focada para pessoas que procuram melhoras seus ganhos </Text>
+                }}>Minha academia é fudida para pessoas que procuram melhorar seus ganhos </Text>
                 <Text style={{
                     color: "#ffffff"
                 }}>Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet</Text>

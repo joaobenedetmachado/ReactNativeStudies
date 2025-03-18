@@ -6,7 +6,7 @@ import Page from './screens/Page';
 export default function App() {
   return (
     <View style={styles.container}>
-      <Page/>
+      <Login/>
       <StatusBar style="auto" />
     </View>
   );
