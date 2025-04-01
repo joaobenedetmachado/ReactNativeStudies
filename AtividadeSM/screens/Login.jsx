@@ -1,6 +1,8 @@
-import { View, TextInput, StyleSheet, Text, Button, Image } from 'react-native'
+import { StyleSheet, Text, View, TextInput, Image, Button } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 export default function Login() {
+    const navigation = useNavigation();
     return (
         <View style={style.container}>
 
@@ -18,7 +20,10 @@ export default function Login() {
                     placeholder='Senha'
                     style={style.input}
                 />
-                <Button title="Entrar" />
+                                <Button 
+                    onPress={() => navigation.navigate('Page')} 
+                    title="Entrar" 
+                />
             </View>
         </View>
     )
