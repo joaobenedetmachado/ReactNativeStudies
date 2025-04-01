@@ -16,7 +16,16 @@ const Tab = createBottomTabNavigator();
 
 function StackNavigator() { //inves de chamar uma pagina, ele chama uma funcao que contem as paginas, porem elas tem o tabnav
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
+    <Stack.Navigator
+    screenOptions={
+      {
+        headerShown: false,
+        headerStyle: {
+          headerBackground: "#252525"
+        }
+      }
+    }
+    >
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="Page" component={TabNavigator} />
     </Stack.Navigator>
@@ -30,8 +39,10 @@ function TabNavigator() {
         component={Page}
         options={
           {
-            tabBarIcon: () => <AntDesign name="home" size={24} color="black" />,
-            
+            tabBarIcon: () => <AntDesign name="home" size={24} color="white" />,
+            tabBarStyle:{
+              backgroundColor: "#252525"
+            }
           }
         }
 
@@ -39,8 +50,11 @@ function TabNavigator() {
       <Tab.Screen name="Filmes" component={Films}
               options={
                 {
-                  tabBarIcon: () => <AntDesign name="videocamera" size={24} color="black" />,
+                  tabBarIcon: () => <AntDesign name="videocamera" size={24} color="white" />,
                   backgroundColor: "#252525",
+                  tabBarStyle:{
+                    backgroundColor: "#252525"
+                  }
                 }
               }
       />
