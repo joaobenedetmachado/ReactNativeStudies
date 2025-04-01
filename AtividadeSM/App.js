@@ -6,11 +6,15 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Login from "./screens/Login";
 import Page from "./screens/Page";
 import Films from './screens/Films';
+import AntDesign from '@expo/vector-icons/AntDesign';
+
+
+//importar os ngc, chamar como uma funcao, do import la de cima
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
-function StackNavigator() {
+function StackNavigator() { //inves de chamar uma pagina, ele chama uma funcao que contem as paginas, porem elas tem o tabnav
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="Login" component={Login} />
@@ -21,9 +25,25 @@ function StackNavigator() {
 
 function TabNavigator() {
   return (
-    <Tab.Navigator>
-      <Tab.Screen name="Page" component={Page} />
-      <Tab.Screen name="Filmes" component={Films} />
+    <Tab.Navigator initialRouteName='Page'>
+      <Tab.Screen name="Page"
+        component={Page}
+        options={
+          {
+            tabBarIcon: () => <AntDesign name="home" size={24} color="black" />,
+            
+          }
+        }
+
+      />
+      <Tab.Screen name="Filmes" component={Films}
+              options={
+                {
+                  tabBarIcon: () => <AntDesign name="videocamera" size={24} color="black" />,
+                  backgroundColor: "#252525",
+                }
+              }
+      />
     </Tab.Navigator>
   );
 }

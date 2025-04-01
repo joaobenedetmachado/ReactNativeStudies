@@ -1,4 +1,5 @@
 import { View, Text, Image, StyleSheet } from 'react-native';
+import AntDesign from '@expo/vector-icons/AntDesign';
 
 function Page() {
     return (
