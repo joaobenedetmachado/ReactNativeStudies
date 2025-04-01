@@ -27,7 +27,7 @@ function Page() {
                 }}>
                 <Text style={{
                     color: "#ffffff"
-                }}>Minha academia é fundada para pessoas que procuram melhorar seus ganhos </Text>
+                }}>Minha academia chamada Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores, ab reprehenderit totam magnam dolores eligendi illo alias! Praesentium ullam, repellendus explicabo dicta expedita quaerat, esse, vel suscipit enim porro aut é fundada para pessoas que procuram melhorar seus ganhos </Text>
                 <Text style={{
                     color: "#ffffff"
                 }}>Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet</Text>
