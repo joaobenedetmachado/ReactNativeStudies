@@ -5,13 +5,14 @@ import { useNavigation } from '@react-navigation/native';
 export default function Login() {
     const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
+    const [error, setError] = useState("");
     const navigation = useNavigation();
 
     const ChangeToPage = () => {
         if (email && senha) {  
             navigation.navigate('Page');
         } else {
-            alert('Por favor, preencha email e senha');
+            setError("Por favor, preencha email e senha");
         }
     };
 
@@ -40,7 +41,7 @@ export default function Login() {
                     secureTextEntry
                 />
                 <Button title="Entrar" onPress={ChangeToPage} />
-            </View>
+                {error ? <Text style={{color: 'red'}}>{error}</Text> : null}            </View>
 
         </View>
     );
