@@ -6,7 +6,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Login from "./screens/Login";
 import Page from "./screens/Page";
 import Films from './screens/Films';
-import Feed from "./screens/Feed"
+import Feed from "./screens/Feed";
+import Counter from './screens/Counter';
 import AntDesign from '@expo/vector-icons/AntDesign';
 
 
@@ -69,7 +70,18 @@ function TabNavigator() {
       <Tab.Screen name="Feed" component={Feed}
         options={
           {
-            tabBarIcon: () => <AntDesign name="videocamera" size={24} color="white" />,
+            tabBarIcon: () => <AntDesign name="laptop" size={24} color="white" />,
+            backgroundColor: "#252525",
+            tabBarStyle: {
+              backgroundColor: "#252525"
+            }
+          }
+        }
+      />
+            <Tab.Screen name="Counter" component={Counter}
+        options={
+          {
+            tabBarIcon: () => <AntDesign name="pluscircle" size={24} color="white" />,
             backgroundColor: "#252525",
             tabBarStyle: {
               backgroundColor: "#252525"
