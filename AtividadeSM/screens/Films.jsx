@@ -4,7 +4,6 @@ import { StyleSheet, Text, View, TextInput, Button, Image, Dimensions, ScrollVie
 import CardMovie from '../components/CardMovie';
 const { height, width } = Dimensions.get('window');
 import Loading from '../components/Loading';
-import Page from '../components/Page';
 
 export default function Films() {
   const [inputValue, setInputValue] = useState('');
@@ -73,7 +72,6 @@ export default function Films() {
 
       <StatusBar style="auto" />
     </View>
-    <Page/>
     </ScrollView>
   );
 }
