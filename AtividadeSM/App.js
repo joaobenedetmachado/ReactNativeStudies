@@ -18,14 +18,14 @@ const Tab = createBottomTabNavigator();
 function StackNavigator() { //inves de chamar uma pagina, ele chama uma funcao que contem as paginas, porem elas tem o tabnav
   return (
     <Stack.Navigator
-    screenOptions={
-      {
-        headerShown: false,
-        headerStyle: {
-          headerBackground: "#252525"
+      screenOptions={
+        {
+          headerShown: false,
+          headerStyle: {
+            headerBackground: "#252525"
+          }
         }
       }
-    }
     >
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="Page" component={TabNavigator} />
@@ -35,13 +35,20 @@ function StackNavigator() { //inves de chamar uma pagina, ele chama uma funcao q
 
 function TabNavigator() {
   return (
-    <Tab.Navigator initialRouteName='Page'>
+    <Tab.Navigator initialRouteName='Page'
+    screenOptions={{
+      headerStyle: {
+        backgroundColor: "#252525",
+      },
+      headerTintColor: "#fff"
+    }}>
       <Tab.Screen name="Page"
+      
         component={Page}
         options={
           {
             tabBarIcon: () => <AntDesign name="home" size={24} color="white" />,
-            tabBarStyle:{
+            tabBarStyle: {
               backgroundColor: "#252525"
             }
           }
@@ -49,26 +56,26 @@ function TabNavigator() {
 
       />
       <Tab.Screen name="Filmes" component={Films}
-              options={
-                {
-                  tabBarIcon: () => <AntDesign name="videocamera" size={24} color="white" />,
-                  backgroundColor: "#252525",
-                  tabBarStyle:{
-                    backgroundColor: "#252525"
-                  }
-                }
-              }
+        options={
+          {
+            tabBarIcon: () => <AntDesign name="videocamera" size={24} color="white" />,
+            backgroundColor: "#252525",
+            tabBarStyle: {
+              backgroundColor: "#252525"
+            }
+          }
+        }
       />
       <Tab.Screen name="Feed" component={Feed}
-              options={
-                {
-                  tabBarIcon: () => <AntDesign name="videocamera" size={24} color="white" />,
-                  backgroundColor: "#252525",
-                  tabBarStyle:{
-                    backgroundColor: "#252525"
-                  }
-                }
-              }
+        options={
+          {
+            tabBarIcon: () => <AntDesign name="videocamera" size={24} color="white" />,
+            backgroundColor: "#252525",
+            tabBarStyle: {
+              backgroundColor: "#252525"
+            }
+          }
+        }
       />
     </Tab.Navigator>
   );
