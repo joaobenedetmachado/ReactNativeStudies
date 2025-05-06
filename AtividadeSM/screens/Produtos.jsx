@@ -8,56 +8,103 @@ export default function Produtos() {
             id: 1,
             nome: 'Plano Mensal',
             preco: 99.90,
-            desc: 'Acesso livre à academia por 30 dias, sem fidelidade.'
+            desc: 'Acesso livre à academia por 30 dias, sem fidelidade.',
+            link: 'https://img.cdndsgni.com/preview/11808128.jpg'
         },
         {
             id: 2,
             nome: 'Personal Trainer',
             preco: 150.00,
-            desc: 'Sessão individual com acompanhamento profissional.'
+            desc: 'Sessão individual com acompanhamento profissional.',
+            link: 'https://agilize.com.br/blog/wp-content/uploads/2024/05/Contabilidade-para-personal-trainer.png'
         },
         {
             id: 3,
             nome: 'Suplemento Whey Protein',
             preco: 120.00,
-            desc: 'Pote de 1kg de whey protein concentrado.'
+            desc: 'Pote de 1kg de whey protein concentrado.',
+            link: 'https://cdn.shoppub.io/cdn-cgi/image/w=1000,h=1000,q=80,f=auto/gsn/media/uploads/produtos/foto/fpnoowgo/chocolate.png'
         },
         {
             id: 4,
             nome: 'Avaliação Física',
             preco: 80.00,
-            desc: 'Avaliação completa com bioimpedância e medidas corporais.'
+            desc: 'Avaliação completa com bioimpedância e medidas corporais.',
+            link:'https://marconiribeiro.com.br/wp-content/uploads/2019/07/avaliacao-fisica-ciclismo-marconi-ribeiro-soares.png'
+        },
+        {
+            id: 5,
+            nome: 'Plano Trimestral',
+            preco: 269.90,
+            desc: 'Acesso à academia por 90 dias com desconto promocional.',
+            link: 'https://img.cdndsgni.com/preview/11808128.jpg'
+        },
+        {
+            id: 6,
+            nome: 'Plano Anual',
+            preco: 899.90,
+            desc: 'Acesso livre à academia por 12 meses com benefícios exclusivos.',
+            link: 'https://img.cdndsgni.com/preview/11808128.jpg'
+        },
+        {
+            id: 7,
+            nome: 'Suplemento Creatina',
+            preco: 90.00,
+            desc: 'Pote de 300g de creatina monohidratada.',
+            link: 'https://cdn.awsli.com.br/2500x2500/49/49309/produto/231442297/creatina-i27guiin0r.png'
+        },
+        {
+            id: 8,
+            nome: 'Aula de Yoga',
+            preco: 50.00,
+            desc: 'Sessão avulsa de yoga com instrutor especializado.',
+            link: 'https://image.tuasaude.com/media/article/xl/du/beneficios-do-yoga_22472.jpg?width=686&height=487'
+        },
+        {
+            id: 9,
+            nome: 'Massagem Desportiva',
+            preco: 100.00,
+            desc: 'Sessão de 45 minutos para recuperação muscular.',
+            link: 'https://laboro.edu.br/wp-content/uploads/2021/05/Massagem-relaxante.jpg'
+        },
+        {
+            id: 10,
+            nome: 'Consultoria Nutricional',
+            preco: 130.00,
+            desc: 'Consulta com nutricionista focada em performance esportiva.',
+            link: 'https://cdn2.hubspot.net/hubfs/2973708/consultoria%20empresarial%20curso%20de%20administracao.jpg'
         }
-    ]);
 
-    const produtosrender = ({item}) => (
-        <View  style={styles.card}>
-            <Text style={styles.nome} >{item.nome}</Text>
-            <Text >{item.desc}</Text>
-            <Text style={styles.preco}>{item.preco}</Text>
+    ]);
+    const produtosrender = ({ item }) => (
+        <View style={styles.card}>
+          <View>
+            <Image
+              source={{ uri: item.link }}
+              style={{ width: 100, height: 100, resizeMode: 'cover' }}
+            />
+          </View>
+          <View>
+            <Text style={styles.nome}>{item.nome}</Text>
+            <Text numberOfLines={1} ellipsizeMode="tail" >{item.desc}</Text>
+            <Text style={styles.preco}>R$ {item.preco.toFixed(2)}</Text>
+          </View>
         </View>
-    )
+      );
+      
 
 
     return (
         <ScrollView>
-        <View style={styles.container}>
-            <Text>Meus produtos!</Text>
-            <FlatList
-                data={produtos}
-                keyExtractor={item => item.id}
-                renderItem={produtosrender}
-                contentContainerStyle={styles.container}
-            />
-            {produtos.map((item) => (
-                        <View  style={styles.card} key={item.id}>
-                        <Text style={styles.nome} >{item.nome}</Text>
-                        <Text >{item.desc}</Text>
-                        <Text style={styles.preco}>{item.preco}</Text>
-                    </View>
-            ))}
-
-        </View>
+            <View style={styles.container}>
+                <Text>Meus produtos!</Text>
+                <FlatList
+                    data={produtos}
+                    keyExtractor={item => item.id}
+                    renderItem={produtosrender}
+                    contentContainerStyle={styles.container}
+                />
+            </View>
         </ScrollView>
     )
 }
@@ -67,10 +114,12 @@ const styles = StyleSheet.create({
         padding: 16
     },
     card: {
-        backgroundColor: '#f2f2f2',
+        backgroundColor: '#e8e8e8',
         padding: 12,
         borderRadius: 8,
-        marginBottom: 12
+        marginBottom: 12,
+        flexDirection: 'row',
+        gap: 12,
     },
     nome: {
         fontSize: 18,
