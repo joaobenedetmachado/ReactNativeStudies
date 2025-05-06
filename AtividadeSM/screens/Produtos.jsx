@@ -49,11 +49,6 @@ export default function Produtos() {
                 renderItem={renderItem}
                 contentContainerStyle={styles.container}
             />
-{produtos.map((item) => (
-    <View key={item.id}>
-        <Text>{item.nome}</Text>
-    </View>
-))}
         </View>
         </ScrollView>
     )

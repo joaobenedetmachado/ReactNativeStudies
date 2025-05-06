@@ -94,7 +94,7 @@ function TabNavigator() {
                   <Tab.Screen name="Produtos" component={Produtos}
         options={
           {
-            tabBarIcon: () => <AntDesign name="shop" size={24} color="white" />,
+            tabBarIcon: () => <AntDesign name="shoppingcart" size={24} color="white" />,
             backgroundColor: "#252525",
             tabBarStyle: {
               backgroundColor: "#252525"
