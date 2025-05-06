@@ -1,6 +1,7 @@
 import { View, Text, Image, FlatList, StyleSheet } from 'react-native';
 import { useState } from 'react';
 import { ScrollView } from 'react-native-web';
+import CardProduct from '../components/CardProduct'
 
 export default function Produtos() {
     const [produtos, setProdutos] = useState([
@@ -30,7 +31,7 @@ export default function Produtos() {
             nome: 'Avaliação Física',
             preco: 80.00,
             desc: 'Avaliação completa com bioimpedância e medidas corporais.',
-            link:'https://marconiribeiro.com.br/wp-content/uploads/2019/07/avaliacao-fisica-ciclismo-marconi-ribeiro-soares.png'
+            link: 'https://marconiribeiro.com.br/wp-content/uploads/2019/07/avaliacao-fisica-ciclismo-marconi-ribeiro-soares.png'
         },
         {
             id: 5,
@@ -77,21 +78,14 @@ export default function Produtos() {
 
     ]);
     const produtosrender = ({ item }) => (
-        <View style={styles.card}>
-          <View>
-            <Image
-              source={{ uri: item.link }}
-              style={{ width: 100, height: 100, resizeMode: 'cover' }}
-            />
-          </View>
-          <View>
-            <Text style={styles.nome}>{item.nome}</Text>
-            <Text numberOfLines={1} ellipsizeMode="tail" >{item.desc}</Text>
-            <Text style={styles.preco}>R$ {item.preco.toFixed(2)}</Text>
-          </View>
-        </View>
-      );
-      
+        <CardProduct
+            nome={item.nome}
+            desc={item.desc}
+            preco={item.preco}
+            image={item.link}
+        />
+    );
+
 
 
     return (
