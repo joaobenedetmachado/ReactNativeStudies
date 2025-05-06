@@ -30,13 +30,13 @@ export default function Produtos() {
         }
     ]);
 
-    const renderItem = ({ item }) => (
-        <View style={styles.card}>
-            <Text style={styles.nome}>{item.nome}</Text>
-            <Text>{item.desc}</Text>
-            <Text style={styles.preco}>R$ {item.preco.toFixed(2)}</Text>
+    const produtosrender = ({item}) => (
+        <View  style={styles.card}>
+            <Text style={styles.nome} >{item.nome}</Text>
+            <Text >{item.desc}</Text>
+            <Text style={styles.preco}>{item.preco}</Text>
         </View>
-    );
+    )
 
 
     return (
@@ -46,9 +46,17 @@ export default function Produtos() {
             <FlatList
                 data={produtos}
                 keyExtractor={item => item.id}
-                renderItem={renderItem}
+                renderItem={produtosrender}
                 contentContainerStyle={styles.container}
             />
+            {produtos.map((item) => (
+                        <View  style={styles.card} key={item.id}>
+                        <Text style={styles.nome} >{item.nome}</Text>
+                        <Text >{item.desc}</Text>
+                        <Text style={styles.preco}>{item.preco}</Text>
+                    </View>
+            ))}
+
         </View>
         </ScrollView>
     )
