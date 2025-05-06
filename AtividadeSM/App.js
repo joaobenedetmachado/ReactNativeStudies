@@ -8,7 +8,9 @@ import Page from "./screens/Page";
 import Films from './screens/Films';
 import Feed from "./screens/Feed";
 import Counter from './screens/Counter';
+import Produtos from './screens/Produtos';
 import AntDesign from '@expo/vector-icons/AntDesign';
+
 
 
 //importar os ngc, chamar como uma funcao, do import la de cima
@@ -82,6 +84,17 @@ function TabNavigator() {
         options={
           {
             tabBarIcon: () => <AntDesign name="pluscircle" size={24} color="white" />,
+            backgroundColor: "#252525",
+            tabBarStyle: {
+              backgroundColor: "#252525"
+            }
+          }
+        }
+      />
+                  <Tab.Screen name="Produtos" component={Produtos}
+        options={
+          {
+            tabBarIcon: () => <AntDesign name="shop" size={24} color="white" />,
             backgroundColor: "#252525",
             tabBarStyle: {
               backgroundColor: "#252525"
