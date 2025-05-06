@@ -91,7 +91,6 @@ export default function Produtos() {
     return (
         <ScrollView>
             <View style={styles.container}>
-                <Text>Meus produtos!</Text>
                 <FlatList
                     data={produtos}
                     keyExtractor={item => item.id}
