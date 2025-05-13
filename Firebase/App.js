@@ -17,6 +17,7 @@ export default function App() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setUser(user);
@@ -59,6 +60,7 @@ export default function App() {
                     onPress={() => auth.signOut()}
                     style={styles.logoutButton}
                   >
+                    <Text> {user.email} </Text>
                     <Text style={styles.logoutText}>Logout</Text>
                   </TouchableOpacity>
                 ),

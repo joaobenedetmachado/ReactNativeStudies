@@ -6,6 +6,17 @@ import { db } from '../firebaseConfig';
 export default function ProductListScreen({ navigation }) {
   const [products, setProducts] = useState([]);
 
+  function dataAtualFormatada(){
+    var data = new Date(),
+        dia  = data.getDate().toString(),
+        diaF = (dia.length == 1) ? '0'+dia : dia,
+        mes  = (data.getMonth()+1).toString(), //+1 pois no getMonth Janeiro começa com zero.
+        mesF = (mes.length == 1) ? '0'+mes : mes,
+        anoF = data.getFullYear();
+    return diaF+"/"+mesF+"/"+anoF;
+}
+
+
   const fetchProducts = async () => {
     try {
       const querySnapshot = await getDocs(collection(db, 'products'));
@@ -37,7 +48,7 @@ export default function ProductListScreen({ navigation }) {
       <View style={styles.productInfo}>
         <Text style={styles.productName}>{item.name}</Text>
         <Text style={styles.productPrice}>R$ {item.price}</Text>
-        <Text style={styles.productCreatedAt}>{item.createdAt}</Text>
+        <Text style={styles.productCreatedAt}>{dataAtualFormatada(item.createdAt)}</Text>
       </View>
       <View style={styles.productActions}>
         <TouchableOpacity
