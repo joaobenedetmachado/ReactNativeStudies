@@ -10,7 +10,7 @@ export default function AddProductScreen({ navigation }) {
 
   const handleAddProduct = async () => {
     if (!name || !price) {
-      Alert.alert('Error', 'Please fill in all required fields');
+      Alert.alert('Error', 'por favor coloque tudo que precisa');
       return;
     }
 

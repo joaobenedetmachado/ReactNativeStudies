@@ -40,8 +40,6 @@ export default function LoginScreen({ navigation }) {
         value={email}
         onChangeText={setEmail}
         keyboardType="email-address"
-        autoCapitalize="none"
-        editable={!loading}
       />
       <TextInput
         style={styles.input}
@@ -49,7 +47,6 @@ export default function LoginScreen({ navigation }) {
         value={password}
         onChangeText={setPassword}
         secureTextEntry
-        editable={!loading}
       />
       <TouchableOpacity 
         style={[styles.button, loading && styles.buttonDisabled]} 

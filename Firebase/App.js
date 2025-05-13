@@ -5,7 +5,6 @@ import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { auth } from './firebaseConfig';
 
-// Import screens
 import AddProductScreen from './screens/AddProductScreen';
 import EditProductScreen from './screens/EditProductScreen';
 import LoginScreen from './screens/LoginScreen';
@@ -50,7 +49,6 @@ export default function App() {
         }}
       >
         {user ? (
-          // Authenticated stack
           <>
             <Stack.Screen 
               name="Products" 
@@ -70,7 +68,7 @@ export default function App() {
             <Stack.Screen name="EditProduct" component={EditProductScreen} />
           </>
         ) : (
-          // Non-authenticated stack
+          // caso nao esteja autenticado
           <>
             <Stack.Screen 
               name="Login" 
