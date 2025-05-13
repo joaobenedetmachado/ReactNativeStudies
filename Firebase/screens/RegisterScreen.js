@@ -10,7 +10,7 @@ export default function RegisterScreen({ navigation }) {
 
   const handleRegister = async () => {
     if (password !== confirmPassword) {
-      Alert.alert('Error', 'Passwords do not match');
+      Alert.alert('Error', 'SENHAS DIFERENTES');
       return;
     }
 
@@ -52,7 +52,7 @@ export default function RegisterScreen({ navigation }) {
         <Text style={styles.buttonText}>Register</Text>
       </TouchableOpacity>
       <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-        <Text style={styles.link}>Already have an account? Login</Text>
+        <Text style={styles.link}>ja tem conta? Login</Text>
       </TouchableOpacity>
     </View>
   );

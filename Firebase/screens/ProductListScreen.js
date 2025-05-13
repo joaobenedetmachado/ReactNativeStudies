@@ -64,7 +64,7 @@ export default function ProductListScreen({ navigation }) {
         onPress={() => navigation.navigate('AddProduct')}
         activeOpacity={0.7}
       >
-        <Text style={styles.buttonText}>Add New Product</Text>
+        <Text style={styles.buttonText}>Add produto</Text>
       </TouchableOpacity>
       <FlatList
         data={products}
