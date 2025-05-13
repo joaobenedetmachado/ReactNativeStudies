@@ -10,7 +10,7 @@ export default function AddProductScreen({ navigation }) {
 
   const handleAddProduct = async () => {
     if (!name || !price) {
-      Alert.alert('Error', 'por favor coloque tudo que precisa');
+      Alert.alert('Error', 'por favor coloque tudo o que precisa');
       return;
     }
 
@@ -21,39 +21,41 @@ export default function AddProductScreen({ navigation }) {
         description,
         createdAt: new Date().toISOString(),
       });
-      Alert.alert('Success', 'Product added successfully');
+      Alert.alert('Success', 'produto adcionado com sucesso');
       navigation.goBack();
     } catch (error) {
       Alert.alert('Error', error.message);
+    } finally {
+      Alert.alert("Produto adcionado!")
     }
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Add New Product</Text>
+      <Text style={styles.title}>Add produto</Text>
       <TextInput
         style={styles.input}
-        placeholder="Product Name"
+        placeholder="Nome"
         value={name}
         onChangeText={setName}
       />
       <TextInput
         style={styles.input}
-        placeholder="Price"
+        placeholder="preco"
         value={price}
         onChangeText={setPrice}
         keyboardType="numeric"
       />
       <TextInput
         style={[styles.input, styles.textArea]}
-        placeholder="Description"
+        placeholder="descricao"
         value={description}
         onChangeText={setDescription}
         multiline
         numberOfLines={4}
       />
       <TouchableOpacity style={styles.button} onPress={handleAddProduct}>
-        <Text style={styles.buttonText}>Add Product</Text>
+        <Text style={styles.buttonText}>Add produto</Text>
       </TouchableOpacity>
     </View>
   );

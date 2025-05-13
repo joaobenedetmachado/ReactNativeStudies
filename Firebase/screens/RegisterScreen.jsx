@@ -16,10 +16,12 @@ export default function RegisterScreen({ navigation }) {
 
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      console.log('Registered with:', userCredential.user.email);
+      console.log(userCredential.user);
       navigation.navigate('Login');
     } catch (error) {
       Alert.alert('Error', error.message);
+    } finally {
+      Alert.alert('Sucess', "Deu certo, Registrado!")
     }
   };
 

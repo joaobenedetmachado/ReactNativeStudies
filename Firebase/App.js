@@ -51,7 +51,7 @@ export default function App() {
         {user ? (
           <>
             <Stack.Screen 
-              name="Products" 
+              name="Produtos" 
               component={ProductListScreen}
               options={{
                 headerRight: () => (

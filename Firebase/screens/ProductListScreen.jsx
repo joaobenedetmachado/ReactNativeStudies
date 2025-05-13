@@ -37,6 +37,7 @@ export default function ProductListScreen({ navigation }) {
       <View style={styles.productInfo}>
         <Text style={styles.productName}>{item.name}</Text>
         <Text style={styles.productPrice}>R$ {item.price}</Text>
+        <Text style={styles.productCreatedAt}>{item.createdAt}</Text>
       </View>
       <View style={styles.productActions}>
         <TouchableOpacity
@@ -160,4 +161,8 @@ const styles = StyleSheet.create({
   deleteButton: {
     backgroundColor: '#f44336',
   },
+  productCreatedAt: {
+    fontStyle: "italic",
+    color: "#ddd5d4",
+  }
 }); 
