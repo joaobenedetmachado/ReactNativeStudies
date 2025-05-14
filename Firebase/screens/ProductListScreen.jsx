@@ -90,7 +90,8 @@ export default function ProductListScreen({ navigation }) {
         onPress={() => navigation.navigate('AddProduct')}
         activeOpacity={0.7}
       >
-        <Text style={styles.buttonText}>Add produto</Text>
+        <Text style={styles.buttonTextAdd}>
+        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"/></svg></Text>
       </TouchableOpacity>
       <FlatList
         data={products}
@@ -114,6 +115,8 @@ const styles = StyleSheet.create({
     padding: 15,
     borderRadius: 5,
     marginBottom: 20,
+    maxWidth:50,
+    maxHeight:50,
     ...Platform.select({
       web: {
         boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
@@ -123,7 +126,7 @@ const styles = StyleSheet.create({
       },
     }),
   },
-  buttonText: {
+  buttonTextAdd: {
     color: '#fff',
     textAlign: 'center',
     fontWeight: 'bold',
