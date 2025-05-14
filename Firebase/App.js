@@ -51,8 +51,9 @@ export default function App() {
       >
         {user ? (
           <>
-            <Stack.Screen 
-              name="Produtos" 
+            <Stack.Screen
+              name="Produtos"
+              initialParams={{ email: user.email }}
               component={ProductListScreen}
               options={{
                 headerRight: () => (
@@ -66,19 +67,20 @@ export default function App() {
                 ),
               }}
             />
-            <Stack.Screen name="AddProduct" component={AddProductScreen} />
-            <Stack.Screen name="EditProduct" component={EditProductScreen} />
+            <Stack.Screen name="AddProduct" component={AddProductScreen} initialParams={{ email: user.email }}
+            />
+            <Stack.Screen name="EditProduct" component={EditProductScreen} initialParams={{ email: user.email }} />
           </>
         ) : (
           // caso nao esteja autenticado
           <>
-            <Stack.Screen 
-              name="Login" 
+            <Stack.Screen
+              name="Login"
               component={LoginScreen}
               options={{ headerShown: false }}
             />
-            <Stack.Screen 
-              name="Register" 
+            <Stack.Screen
+              name="Register"
               component={RegisterScreen}
               options={{ headerShown: false }}
             />

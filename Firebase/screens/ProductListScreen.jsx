@@ -1,25 +1,33 @@
-import { collection, deleteDoc, doc, getDocs } from 'firebase/firestore';
+import { collection, deleteDoc, doc, getDocs, query, where } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
 import { Alert, FlatList, Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { db } from '../firebaseConfig';
+import { useRoute, useNavigation } from '@react-navigation/native';
 
 export default function ProductListScreen({ navigation }) {
   const [products, setProducts] = useState([]);
+  const route = useRoute();
+  const { email } = route.params;
 
-  function dataAtualFormatada(){
+  function dataAtualFormatada() {
     var data = new Date(),
-        dia  = data.getDate().toString(),
-        diaF = (dia.length == 1) ? '0'+dia : dia,
-        mes  = (data.getMonth()+1).toString(), //+1 pois no getMonth Janeiro começa com zero.
-        mesF = (mes.length == 1) ? '0'+mes : mes,
-        anoF = data.getFullYear();
-    return diaF+"/"+mesF+"/"+anoF;
-}
+      dia = data.getDate().toString(),
+      diaF = (dia.length == 1) ? '0' + dia : dia,
+      mes = (data.getMonth() + 1).toString(), //+1 pois no getMonth Janeiro começa com zero.
+      mesF = (mes.length == 1) ? '0' + mes : mes,
+      anoF = data.getFullYear();
+    return diaF + "/" + mesF + "/" + anoF;
+  }
 
 
   const fetchProducts = async () => {
     try {
-      const querySnapshot = await getDocs(collection(db, 'products'));
+      const q = query(
+        collection(db, 'products'),
+        where('email', '==', email)
+      );
+  
+      const querySnapshot = await getDocs(q);
       const productList = querySnapshot.docs.map(doc => ({
         id: doc.id,
         ...doc.data()
@@ -29,10 +37,14 @@ export default function ProductListScreen({ navigation }) {
       Alert.alert('Error', error.message);
     }
   };
+  
 
   useEffect(() => {
-    fetchProducts();
-  }, []);
+    if (email) {
+      fetchProducts();
+    }
+  }, [email]);
+  
 
   const handleDelete = async (productId) => {
     try {
@@ -57,7 +69,7 @@ export default function ProductListScreen({ navigation }) {
           activeOpacity={0.7}
         >
           <Text style={styles.buttonText}>
-          <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#ffffff"><path d="M0 0h24v24H0z" fill="none"/><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg></Text>
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#ffffff"><path d="M0 0h24v24H0z" fill="none" /><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" /></svg></Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={[styles.button, styles.deleteButton]}
@@ -65,7 +77,7 @@ export default function ProductListScreen({ navigation }) {
           activeOpacity={0.7}
         >
           <Text style={styles.buttonText}>
-          <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#ffffff"><path d="M0 0h24v24H0z" fill="none"/><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg></Text>
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#ffffff"><path d="M0 0h24v24H0z" fill="none" /><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z" /></svg></Text>
         </TouchableOpacity>
       </View>
     </View>

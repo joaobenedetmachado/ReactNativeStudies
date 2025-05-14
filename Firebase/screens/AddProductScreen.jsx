@@ -2,12 +2,15 @@ import { addDoc, collection } from 'firebase/firestore';
 import React, { useState } from 'react';
 import { Alert, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { db } from '../firebaseConfig';
+import { useRoute, useNavigation } from '@react-navigation/native';
 
 export default function AddProductScreen({ navigation }) {
   const [name, setName] = useState('');
   const [price, setPrice] = useState('');
   const [description, setDescription] = useState('');
-
+  const route = useRoute();
+  const { email } = route.params;
+  
   const handleAddProduct = async () => {
     if (!name || !price) {
       Alert.alert('Error', 'por favor coloque tudo o que precisa');
@@ -16,6 +19,7 @@ export default function AddProductScreen({ navigation }) {
 
     try {
       await addDoc(collection(db, 'products'), {
+        email,
         name,
         price: parseFloat(price),
         description,
