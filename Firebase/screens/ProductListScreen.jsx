@@ -145,6 +145,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#ddd',
     backgroundColor: '#fff',
+    marginBottom: 5,
     borderRadius: 12,
     ...Platform.select({
       web: {
