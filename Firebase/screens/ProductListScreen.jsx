@@ -162,6 +162,8 @@ const styles = StyleSheet.create({
     width: 200,
     marginRight: 20,
     borderRadius: 12,
+    borderWidth: 3,
+    borderColor: '#ddd',
   },
   productInfo: {
     flex: 1,
@@ -175,7 +177,8 @@ const styles = StyleSheet.create({
     color: '#666',
   },
   productActions: {
-    flexDirection: 'row',
+    flexDirection: 'column',
+    gap: 12,
   },
   button: {
     padding: 8,
