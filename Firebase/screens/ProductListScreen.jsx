@@ -57,9 +57,10 @@ export default function ProductListScreen({ navigation }) {
 
   const renderItem = ({ item }) => (
     <View style={styles.productItem}>
-      <Image style={styles.imageProduct} source={uri = item.image} />
       <View style={styles.productInfo}>
+      <Image style={styles.imageProduct} source={uri = item.image} />
         <Text style={styles.productName}>{item.name}</Text>
+        <Text style={styles.productPrice}>{item.description}</Text>
         <Text style={styles.productPrice}>R$ {item.price}</Text>
         <Text style={styles.productCreatedAt}>{dataAtualFormatada(item.createdAt)}</Text>
       </View>
