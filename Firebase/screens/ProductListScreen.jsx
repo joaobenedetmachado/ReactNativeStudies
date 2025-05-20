@@ -142,9 +142,10 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     padding: 15,
-    borderBottomWidth: 1,
-    borderBottomColor: '#ddd',
+    borderWidth: 1,
+    borderColor: '#ddd',
     backgroundColor: '#fff',
+    borderRadius: 12,
     ...Platform.select({
       web: {
         boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
