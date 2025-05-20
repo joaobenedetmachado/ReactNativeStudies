@@ -5,6 +5,7 @@ import { db } from '../firebaseConfig';
 import { useRoute, useNavigation } from '@react-navigation/native';
 
 export default function AddProductScreen({ navigation }) {
+  const [image, setImage] = useState('');
   const [name, setName] = useState('');
   const [price, setPrice] = useState('');
   const [description, setDescription] = useState('');
@@ -20,6 +21,7 @@ export default function AddProductScreen({ navigation }) {
     try {
       await addDoc(collection(db, 'products'), {
         email,
+        image,
         name,
         price: parseFloat(price),
         description,
@@ -37,6 +39,12 @@ export default function AddProductScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Add produto</Text>
+      <TextInput
+        style={styles.input}
+        placeholder="Image URL"
+        value={image}
+        onChangeText={setImage}
+      />
       <TextInput
         style={styles.input}
         placeholder="Nome"

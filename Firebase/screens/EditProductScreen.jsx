@@ -5,6 +5,7 @@ import { db } from '../firebaseConfig';
 
 export default function EditProductScreen({ route, navigation }) {
   const { product } = route.params;
+  const [image, setImage] = useState(product.image);
   const [name, setName] = useState(product.name);
   const [price, setPrice] = useState(product.price.toString());
   const [description, setDescription] = useState(product.description || '');
@@ -17,6 +18,7 @@ export default function EditProductScreen({ route, navigation }) {
 
     try {
       await updateDoc(doc(db, 'products', product.id), {
+        image,
         name,
         price: parseFloat(price),
         description,
@@ -32,6 +34,12 @@ export default function EditProductScreen({ route, navigation }) {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Edit Product</Text>
+      <TextInput
+        style={styles.input}
+        placeholder="Product Imagem"
+        value={image}
+        onChangeText={setImage}
+      />
       <TextInput
         style={styles.input}
         placeholder="Product Name"

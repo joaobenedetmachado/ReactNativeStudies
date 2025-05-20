@@ -1,6 +1,6 @@
 import { collection, deleteDoc, doc, getDocs, query, where } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
-import { Alert, FlatList, Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Alert, FlatList, Platform, StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native';
 import { db } from '../firebaseConfig';
 import { useRoute, useNavigation } from '@react-navigation/native';
 
@@ -26,7 +26,7 @@ export default function ProductListScreen({ navigation }) {
         collection(db, 'products'),
         where('email', '==', email)
       );
-  
+
       const querySnapshot = await getDocs(q);
       const productList = querySnapshot.docs.map(doc => ({
         id: doc.id,
@@ -37,14 +37,14 @@ export default function ProductListScreen({ navigation }) {
       Alert.alert('Error', error.message);
     }
   };
-  
+
 
   useEffect(() => {
     if (email) {
       fetchProducts();
     }
   }, [email]);
-  
+
 
   const handleDelete = async (productId) => {
     try {
@@ -57,6 +57,7 @@ export default function ProductListScreen({ navigation }) {
 
   const renderItem = ({ item }) => (
     <View style={styles.productItem}>
+      <Image style={styles.imageProduct} source={uri = item.image} />
       <View style={styles.productInfo}>
         <Text style={styles.productName}>{item.name}</Text>
         <Text style={styles.productPrice}>R$ {item.price}</Text>
@@ -91,7 +92,7 @@ export default function ProductListScreen({ navigation }) {
         activeOpacity={0.7}
       >
         <Text style={styles.buttonTextAdd}>
-        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"/></svg></Text>
+          <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z" /></svg></Text>
       </TouchableOpacity>
       <FlatList
         data={products}
@@ -115,8 +116,8 @@ const styles = StyleSheet.create({
     padding: 15,
     borderRadius: 5,
     marginBottom: 20,
-    maxWidth:50,
-    maxHeight:50,
+    maxWidth: 50,
+    maxHeight: 50,
     ...Platform.select({
       web: {
         boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
@@ -155,6 +156,12 @@ const styles = StyleSheet.create({
         elevation: 1,
       },
     }),
+  },
+  imageProduct: {
+    height: 200,
+    width: 200,
+    marginRight: 20,
+    borderRadius: 12,
   },
   productInfo: {
     flex: 1,
