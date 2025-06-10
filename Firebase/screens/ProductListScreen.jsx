@@ -1,13 +1,15 @@
+import { useRoute } from '@react-navigation/native';
 import { collection, deleteDoc, doc, getDocs, query, where } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
-import { Alert, FlatList, Platform, StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native';
+import { Alert, FlatList, Image, Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { useCarrinho } from '../carrinhoProvider';
 import { db } from '../firebaseConfig';
-import { useRoute, useNavigation } from '@react-navigation/native';
 
 export default function ProductListScreen({ navigation }) {
   const [products, setProducts] = useState([]);
   const route = useRoute();
   const { email } = route.params;
+  const { adicionarAoCarrinho, carrinho } = useCarrinho();
 
   function dataAtualFormatada() {
     var data = new Date(),
@@ -58,13 +60,23 @@ export default function ProductListScreen({ navigation }) {
   const renderItem = ({ item }) => (
     <View style={styles.productItem}>
       <View style={styles.productInfo}>
-      <Image style={styles.imageProduct} source={uri = item.image} />
+        <Image style={styles.imageProduct} source={{ uri: item.image }} />
         <Text style={styles.productName}>{item.name}</Text>
         <Text style={styles.productPrice}>{item.description}</Text>
         <Text style={styles.productPrice}>R$ {item.price}</Text>
         <Text style={styles.productCreatedAt}>{dataAtualFormatada(item.createdAt)}</Text>
       </View>
       <View style={styles.productActions}>
+        <TouchableOpacity
+          style={[styles.button, styles.cartButton]}
+          onPress={() => {
+            adicionarAoCarrinho(item);
+            Alert.alert('Sucesso', 'Produto adicionado ao carrinho!');
+          }}
+          activeOpacity={0.7}
+        >
+          <Text style={styles.buttonText}>🛒</Text>
+        </TouchableOpacity>
         <TouchableOpacity
           style={[styles.button, styles.editButton]}
           onPress={() => navigation.navigate('EditProduct', { product: item })}
@@ -87,14 +99,28 @@ export default function ProductListScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity
-        style={styles.addButton}
-        onPress={() => navigation.navigate('AddProduct')}
-        activeOpacity={0.7}
-      >
-        <Text style={styles.buttonTextAdd}>
-          <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z" /></svg></Text>
-      </TouchableOpacity>
+      <View style={styles.header}>
+        <TouchableOpacity
+          style={styles.addButton}
+          onPress={() => navigation.navigate('AddProduct')}
+          activeOpacity={0.7}
+        >
+          <Text style={styles.buttonTextAdd}>
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z" /></svg></Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.cartHeaderButton}
+          onPress={() => navigation.navigate('Carrinho')}
+          activeOpacity={0.7}
+        >
+          <Text style={styles.cartHeaderText}>🛒</Text>
+          {carrinho.length > 0 && (
+            <View style={styles.cartBadge}>
+              <Text style={styles.cartBadgeText}>{carrinho.length}</Text>
+            </View>
+          )}
+        </TouchableOpacity>
+      </View>
       <FlatList
         data={products}
         renderItem={renderItem}
@@ -112,11 +138,16 @@ const styles = StyleSheet.create({
     padding: 20,
     backgroundColor: '#fff',
   },
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 20,
+  },
   addButton: {
     backgroundColor: '#007AFF',
     padding: 15,
     borderRadius: 5,
-    marginBottom: 20,
     maxWidth: 50,
     maxHeight: 50,
     ...Platform.select({
@@ -203,5 +234,45 @@ const styles = StyleSheet.create({
   productCreatedAt: {
     fontStyle: "italic",
     color: "#ddd5d4",
-  }
+  },
+  cartButton: {
+    backgroundColor: '#FFA500',
+  },
+  cartHeaderButton: {
+    backgroundColor: '#007AFF',
+    padding: 15,
+    borderRadius: 5,
+    maxWidth: 50,
+    maxHeight: 50,
+    position: 'relative',
+    ...Platform.select({
+      web: {
+        boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+      },
+      default: {
+        elevation: 2,
+      },
+    }),
+  },
+  cartHeaderText: {
+    color: '#fff',
+    fontSize: 20,
+    textAlign: 'center',
+  },
+  cartBadge: {
+    position: 'absolute',
+    top: -5,
+    right: -5,
+    backgroundColor: '#FF3B30',
+    borderRadius: 10,
+    minWidth: 20,
+    height: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  cartBadgeText: {
+    color: '#fff',
+    fontSize: 12,
+    fontWeight: 'bold',
+  },
 }); 
