@@ -1,8 +1,20 @@
-import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, FlatList, Image, Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { useCarrinho } from '../carrinhoProvider';
 
 export default function Carrinho() {
-  const { carrinho, removerDoCarrinho } = useCarrinho();
+  const { carrinho, removerDoCarrinho, carregandoCarrinho } = useCarrinho();
+
+  if (carregandoCarrinho) {
+    return (
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator size="large" color="#007AFF" />
+      </View>
+    );
+  }
+
+  const calcularTotal = () => {
+    return carrinho.reduce((total, item) => total + (parseFloat(item.price) || 0), 0).toFixed(2);
+  };
 
   const renderItem = ({ item }) => (
     <View style={styles.cartItem}>
@@ -24,14 +36,23 @@ export default function Carrinho() {
   return (
     <View style={styles.container}>
       {carrinho.length === 0 ? (
-        <Text style={styles.emptyCart}>Seu carrinho está vazio</Text>
+        <View style={styles.emptyContainer}>
+          <Text style={styles.emptyCart}>Seu carrinho está vazio</Text>
+          <Text style={styles.emptyCartSubtitle}>Adicione produtos para ver aqui</Text>
+        </View>
       ) : (
-        <FlatList
-          data={carrinho}
-          renderItem={renderItem}
-          keyExtractor={item => item.id}
-          contentContainerStyle={styles.listContent}
-        />
+        <>
+          <FlatList
+            data={carrinho}
+            renderItem={renderItem}
+            keyExtractor={item => item.id}
+            contentContainerStyle={styles.listContent}
+          />
+          <View style={styles.totalContainer}>
+            <Text style={styles.totalText}>Total:</Text>
+            <Text style={styles.totalValue}>R$ {calcularTotal()}</Text>
+          </View>
+        </>
       )}
     </View>
   );
@@ -41,10 +62,16 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    padding: 16,
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#fff',
   },
   listContent: {
-    paddingBottom: 20,
+    padding: 16,
+    paddingBottom: 100,
   },
   cartItem: {
     flexDirection: 'row',
@@ -52,6 +79,17 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: '#eee',
     alignItems: 'center',
+    backgroundColor: '#fff',
+    marginBottom: 8,
+    borderRadius: 8,
+    ...Platform.select({
+      web: {
+        boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+      },
+      default: {
+        elevation: 2,
+      },
+    }),
   },
   productImage: {
     width: 80,
@@ -83,10 +121,51 @@ const styles = StyleSheet.create({
   removeButtonText: {
     fontSize: 20,
   },
+  emptyContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 20,
+  },
   emptyCart: {
-    fontSize: 18,
-    textAlign: 'center',
+    fontSize: 20,
+    fontWeight: 'bold',
     color: '#666',
-    marginTop: 20,
+    marginBottom: 8,
+  },
+  emptyCartSubtitle: {
+    fontSize: 16,
+    color: '#999',
+    textAlign: 'center',
+  },
+  totalContainer: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    backgroundColor: '#fff',
+    padding: 16,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    borderTopWidth: 1,
+    borderTopColor: '#eee',
+    ...Platform.select({
+      web: {
+        boxShadow: '0 -2px 4px rgba(0,0,0,0.1)',
+      },
+      default: {
+        elevation: 4,
+      },
+    }),
+  },
+  totalText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  totalValue: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#007AFF',
   },
 });
